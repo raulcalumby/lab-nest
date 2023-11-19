@@ -1,5 +1,13 @@
-import { Body, Controller, HttpCode, Post, UsePipes } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+  UseGuards,
+  UsePipes,
+} from '@nestjs/common'
 import { hash } from 'bcryptjs'
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
 import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { z } from 'zod'
@@ -13,6 +21,7 @@ const createAccountBodySchema = z.object({
 type createAccountBodySchema = z.infer<typeof createAccountBodySchema>
 
 @Controller('/accounts')
+@UseGuards(JwtAuthGuard)
 export class CreateAccountController {
   constructor(private readonly prisma: PrismaService) {}
 
