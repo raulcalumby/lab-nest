@@ -36,5 +36,8 @@ lerna-debug.log*
 #Env
 .env
 
+#Public and Private keys
+*.pem
+
 #docker
 data
